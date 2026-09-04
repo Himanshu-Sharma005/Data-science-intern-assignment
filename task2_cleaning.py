@@ -115,6 +115,7 @@ df["heavy_parcel_flag"] = (df["weight_kg"] >= 5).astype(int)
 
 new_features = [
     "dispatch_dayofweek",
+    "dispatch_month",
     "distance_per_promised_day",
     "late_dispatch_flag",
     "heavy_parcel_flag"
