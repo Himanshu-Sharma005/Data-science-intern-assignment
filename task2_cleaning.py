@@ -35,7 +35,7 @@ df.loc[df["distance_km"] < 0, "distance_km"] = np.nan
 
 absurd_weight = (df["weight_kg"]> 20).sum()
 
-df.loc[df["weight_kg"]>20 , "weight-kg"] = np.nan
+df.loc[df["weight_kg"]>20 , "weight_kg"] = np.nan
 
 print("Negative distances: ", negative_distance)
 print("Weights: ", absurd_weight)
@@ -58,13 +58,13 @@ df["destination_city"] = (df["destination_city"].str.lower().str.title())
 
 # missing values
 
-numeric_colums = [
+
+numeric_columns = [
     "distance_km",
     "weight_kg",
     "order_value_inr",
     "rainfall_mm",
     "customer_prior_late_deliveries"
-
 ]
 
 categorical_columns = [
@@ -72,9 +72,17 @@ categorical_columns = [
     "courier_partner",
     "destination_city",
     "customer_segment",
-    "payment_method",
+    "payment_method"
 ]
 
+# Numeric columns:
+# Fill missing values with the median
+for column in numeric_columns:
+    median_value = df[column].median()
+    df[column] = df[column].fillna(median_value)
+
+# Categorical columns:
+# Fill missing values with the most frequent value
 for column in categorical_columns:
     mode_value = df[column].mode(dropna=True)
 
@@ -85,11 +93,15 @@ for column in categorical_columns:
 
     df[column] = df[column].fillna(fill_value)
 
-print("\nMissing values")
+# Check remaining missing values
+print("\nMissing values after cleaning:")
 print(df.isnull().sum())
 
 # day of week
-df["dispatch_dayofweek"] = (df["dispatch_date"].dt.month)
+df["dispatch_dayofweek"] = (df["dispatch_date"].dt.dayofweek)
+
+# day of month
+df["dispatch_month"] = (df["dispatch_date"].dt.month)
 
 # distance per promised day
 df["distance_per_promised_day"] = (df["distance_km"]/df["promised_days"].replace(0,np.nan))
