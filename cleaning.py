@@ -24,7 +24,8 @@ courier_late_rate.plot(kind="bar")
 plt.title("Late rate by courier partner")
 plt.xlabel("courier partner")
 plt.ylabel("late rate")
-plt.xticks(rotation=30, ha="right")
+plt.xticks(rotation=30, ha="right") 
+plt.savefig("outputs/late_rate_by_courier.png", dpi=300, bbox_inches="tight")
 plt.tight_layout()
 
 plt.show()
@@ -43,7 +44,7 @@ plt.xlabel("Promised days")
 plt.ylabel("late rate")
 plt.xticks(rotation=0)
 plt.tight_layout()
-
+plt.savefig("outputs/late_rate_by_promised_days.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # late vs on-time
@@ -58,7 +59,7 @@ plt.xlabel("distance")
 plt.ylabel("number of shipments")
 plt.legend()
 plt.tight_layout()
-
+plt.savefig("outputs/distance_late_vs_ontime.png", dpi=300, bbox_inches="tight")
 plt.show()
 
 # late rate by month of dispatch
@@ -76,4 +77,5 @@ plt.xlabel("Month")
 plt.ylabel("Late rate")
 plt.xticks(range(1,13))
 plt.tight_layout()
+plt.savefig("outputs/late_rate_by_month.png", dpi=300, bbox_inches="tight")
 plt.show()
